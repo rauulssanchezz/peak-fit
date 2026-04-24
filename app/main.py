@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from dotenv import load_dotenv
 from fastapi import FastAPI
+from app.routers.routers import exercise_router
 from app.schemas.user_schema import UserCreate, UserRead, UserUpdate
 from app.auth.fastapi_users import fastapi_users
 from app.auth.auth_backend import auth_backend
@@ -49,4 +50,8 @@ app.include_router(
     fastapi_users.get_users_router(UserRead, UserUpdate),
     prefix="/users",
     tags=["users"],
+)
+
+app.include_router(
+    exercise_router
 )

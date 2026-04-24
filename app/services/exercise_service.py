@@ -13,7 +13,7 @@ class ExerciseService:
         exercise_data: dict[str, Any] = exercise.model_dump()
 
         try:
-            await self.exercise_repository.create_exercise(exercise=exercise_data)
+            return await self.exercise_repository.create_exercise(exercise=exercise_data)
         except IntegrityError as error:
             await self.exercise_repository.db.rollback()
 
