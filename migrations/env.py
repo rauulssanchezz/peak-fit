@@ -1,5 +1,7 @@
 import asyncio
 from logging.config import fileConfig
+from posixpath import abspath, dirname
+import sys
 
 from sqlalchemy import pool
 from sqlalchemy.engine import Connection
@@ -13,6 +15,7 @@ from app.models.access_token import AccessToken
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
+sys.path.insert(0, dirname(dirname(abspath(__file__))))
 config = context.config
 
 # Interpret the config file for Python logging.
