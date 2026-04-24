@@ -10,6 +10,7 @@ cffi==2.0.0
 click==8.3.3
 cryptography==46.0.7
 dnspython==2.8.0
+dotenv==0.9.9
 email-validator==2.3.0
 fastapi==0.136.1
 fastapi-cli==0.0.24
@@ -28,6 +29,7 @@ makefun==1.16.0
 markdown-it-py==4.0.0
 MarkupSafe==3.0.3
 mdurl==0.1.2
+psycopg2==2.9.12
 pwdlib==0.3.0
 pycparser==3.0
 pydantic==2.13.3

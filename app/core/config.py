@@ -1,6 +1,6 @@
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
-
+from fastapi_users.authentication import BearerTransport
 
 class Settings(BaseSettings):
     DATABASE_URL: str = Field(..., validation_alias="DATABASE_URL")
