@@ -3,7 +3,7 @@ import uuid
 from fastapi import Depends, Request
 from fastapi_users import BaseUserManager, UUIDIDMixin
 
-from core.deps.fastapi_users import get_user_db
+from deps.fastapi_users import get_user_db
 from models.user_model import User
 import os
 

@@ -3,7 +3,7 @@ from fastapi_users.authentication import AuthenticationBackend, BearerTransport
 from fastapi_users.authentication.strategy.db import DatabaseStrategy
 import os
 from fastapi_users_db_sqlalchemy.access_token import SQLAlchemyAccessTokenDatabase
-from core.deps.fastapi_users import get_access_token_db
+from deps.fastapi_users import get_access_token_db
 from core.config import settings
 
 SECRET = str(os.getenv("JWT_SECRET"))
