@@ -1,10 +1,10 @@
 from fastapi import FastAPI
 from dotenv import load_dotenv
 from fastapi import FastAPI
-from schemas.user_schema import UserCreate, UserRead, UserUpdate
-from auth.fastapi_users import fastapi_users
-from auth.auth_backend import auth_backend
-from core.error_handler import register_error_handlers
+from app.schemas.user_schema import UserCreate, UserRead, UserUpdate
+from app.auth.fastapi_users import fastapi_users
+from app.auth.auth_backend import auth_backend
+from app.core.error_handler import register_error_handlers
 
 load_dotenv()
 

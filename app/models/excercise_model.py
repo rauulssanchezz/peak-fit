@@ -1,7 +1,7 @@
 import uuid
 from sqlalchemy import UUID, String, Text
 from sqlalchemy.orm import Mapped, mapped_column
-from core.db import Base
+from app.core.db import Base
 
 
 class Exercise(Base):
