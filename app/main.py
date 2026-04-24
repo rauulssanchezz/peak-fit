@@ -35,8 +35,15 @@ app.include_router(
     tags=["auth"],
 )
 
+# TODO
+# app.include_router(
+#     fastapi_users.get_users_router(UserRead, UserUpdate, requires_verification=True),
+#     prefix="/users",
+#     tags=["users"],
+# )
+
 app.include_router(
-    fastapi_users.get_users_router(UserRead, UserUpdate, requires_verification=True),
+    fastapi_users.get_users_router(UserRead, UserUpdate),
     prefix="/users",
     tags=["users"],
 )
