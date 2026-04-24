@@ -2,7 +2,7 @@ import uuid
 from fastapi_users import FastAPIUsers
 from core import auth_backend
 from core.user_manager import get_user_manager
-from models.user import User
+from models.user_model import User
 from core.auth_backend import auth_backend
 
 

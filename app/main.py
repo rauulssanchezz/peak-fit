@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from dotenv import load_dotenv
 from fastapi import FastAPI
-from schemas.user import UserCreate, UserRead, UserUpdate
+from schemas.user_schema import UserCreate, UserRead, UserUpdate
 from core.fastapi_users import fastapi_users
 from core.auth_backend import auth_backend
 

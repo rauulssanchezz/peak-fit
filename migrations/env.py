@@ -10,7 +10,7 @@ from app.core.config import settings
 
 from alembic import context
 from app.core.db import Base
-from app.models.user import User
+from app.models.user_model import User
 from app.models.access_token import AccessToken
 
 # this is the Alembic Config object, which provides
