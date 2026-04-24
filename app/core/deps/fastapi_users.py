@@ -1,8 +1,11 @@
+import uuid
 from fastapi import Depends
+from fastapi_users import FastAPIUsers
 from fastapi_users_db_sqlalchemy.access_token import SQLAlchemyAccessTokenDatabase
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi_users_db_sqlalchemy import SQLAlchemyUserDatabase
-
+from core.auth_backend import auth_backend
+from core.user_manager import get_user_manager
 from models.access_token import AccessToken
 from core.db import get_async_session
 from models.user import User
@@ -14,3 +17,8 @@ async def get_access_token_db(
     session: AsyncSession = Depends(get_async_session),
 ):  
     yield SQLAlchemyAccessTokenDatabase(session, AccessToken)
+
+fastapi_users = FastAPIUsers[User, uuid.UUID](
+    get_user_manager,
+    [auth_backend],
+)
