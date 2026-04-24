@@ -2,14 +2,17 @@ from fastapi import FastAPI
 from dotenv import load_dotenv
 from fastapi import FastAPI
 from schemas.user_schema import UserCreate, UserRead, UserUpdate
-from core.fastapi_users import fastapi_users
-from core.auth_backend import auth_backend
+from auth.fastapi_users import fastapi_users
+from auth.auth_backend import auth_backend
+from core.error_handler import register_error_handlers
 
 load_dotenv()
 
 app = FastAPI(
     title="Peak Fit"
 )
+
+register_error_handlers(app)
 
 app.include_router(
     fastapi_users.get_auth_router(auth_backend),
