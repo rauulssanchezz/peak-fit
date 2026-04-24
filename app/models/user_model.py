@@ -6,5 +6,6 @@ from app.core.db import Base
 class User(SQLAlchemyBaseUserTableUUID, Base):
     weight: Mapped[float] = mapped_column(Float(precision=2))
     goal: Mapped[str] = mapped_column(String(50))
+    genre: Mapped[str] = mapped_column(String(7), nullable=False)
 
     exercises = relationship("Exercise", back_populates="user", cascade="all, delete-orphan")

@@ -10,15 +10,22 @@ class Goals(str, Enum):
     VOLUME = "Volumen."
     FIT = "Estar en forma."
 
+class Genre(str, Enum):
+    MALE = "Hombre"
+    FEMALE = "Mujer"
+
 
 class UserRead(schemas.BaseUser[uuid.UUID]):
     weight: float = Field(gt=35, lt=400)
     goal: Goals
+    genre: Genre
 
 class UserCreate(schemas.BaseUserCreate):
     weight: float = Field(gt=35, lt=400)
     goal: Goals
+    genre: Genre
 
 class UserUpdate(schemas.BaseUserUpdate):
     weight: float = Field(gt=35, lt=400)
     goal: Goals
+    genre: Genre
