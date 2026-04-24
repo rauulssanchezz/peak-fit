@@ -1,7 +1,7 @@
 from typing import AsyncIterator
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
 from sqlalchemy.orm import DeclarativeBase
-from core.config import settings
+from app.core.config import settings
 
 class Base(DeclarativeBase):
     pass
@@ -18,10 +18,6 @@ async_session_generator = async_sessionmaker(
     expire_on_commit=False,
     autoflush=False
 )
-
-async def init_db() -> None:
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all) # TODO: solo en desarrollo
 
 async def get_async_session() -> AsyncIterator[AsyncSession]:
     async with async_session_generator() as session:
