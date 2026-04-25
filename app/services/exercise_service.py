@@ -14,8 +14,11 @@ class ExerciseService:
 
         try:
             return await self.exercise_repository.create_exercise(exercise=exercise_data)
-        except IntegrityError as error:
+        except IntegrityError:
             await self.exercise_repository.db.rollback()
 
             raise PeakFitError("Ese nombre de ejercicio ya existe.")
+        
+    async def get_public_exercises(self, limit: int, offset: int):
+        return await self.exercise_repository.get_public_exercises(limit=limit, offset=offset)
     

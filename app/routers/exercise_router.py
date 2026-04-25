@@ -1,8 +1,9 @@
-from fastapi import Body, Depends
+from fastapi import Body, Depends, Query
 from app.models.user_model import User
 from app.schemas.exercise_schema import ExerciseCreate, ExerciseIn
 from app.repositories.exercise_repository import ExerciseRepository
 from app.core.db import get_async_session
+from app.schemas.public_request import PublicRequest
 from app.services.exercise_service import ExerciseService
 from fastapi.routing import APIRouter
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -28,3 +29,13 @@ async def create_exercise(
 ):
     exercise: ExerciseCreate = ExerciseCreate(**exercise_in.model_dump(), user_id=user.id)
     return await get_exercise_service.create_exercise(exercise=exercise)
+
+@exercise_router.get(
+    path="/public-exercises"
+)
+async def get_public_exercises(
+    params: PublicRequest = Query(),
+    get_exercise_service: ExerciseService = Depends(get_exercise_service),
+    user: User = Depends(current_user)
+):
+    return await get_exercise_service.get_public_exercises(limit=params.limit, offset=params.offset)
