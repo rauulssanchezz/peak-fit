@@ -58,3 +58,20 @@ async def get_public_exercises_by_user_id(
             user_id=user_id
         )
     )
+
+@exercise_router.get(
+    path="/private-exercises"
+)
+async def get_users_private_exercise(
+    params: PublicRequest = Query(),
+    get_exercise_service: ExerciseService = Depends(get_exercise_service),
+    user: User = Depends(current_user)
+):
+    user_id = user.id
+    return (
+        await get_exercise_service.get_public_exercise_by_user(
+            limit=params.limit,
+            offset=params.offset,
+            user_id=user_id
+        )
+    )

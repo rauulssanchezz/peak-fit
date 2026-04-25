@@ -37,3 +37,21 @@ class ExerciseRepository:
         db_result = await self.db.execute(query)
 
         return db_result.scalars().all()
+
+    async def get_users_private_exercise(
+        self,
+        user_id: UUID,
+        limit: int,
+        offset: int
+    ) -> Sequence[Exercise]:
+        query = (
+            select(Exercise)
+            .where(Exercise.is_public==False)
+            .where(Exercise.user_id==user_id)
+            .limit(limit=limit)
+            .offset(offset=offset)
+        )
+
+        db_results = await self.db.execute(query)
+
+        return db_results.scalars().all()
