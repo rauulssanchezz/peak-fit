@@ -1,6 +1,9 @@
 from typing import Any
+from uuid import UUID
+from fastapi import Depends
 from sqlalchemy.exc import IntegrityError
-from sqlalchemy.ext.asyncio import AsyncSession
+from fastapi import status
+from app.auth.user_manager import UserManager, get_user_manager
 from app.core.exceptions import PeakFitError
 from app.schemas.exercise_schema import ExerciseCreate
 from app.repositories.exercise_repository import ExerciseRepository
@@ -22,3 +25,16 @@ class ExerciseService:
     async def get_public_exercises(self, limit: int, offset: int):
         return await self.exercise_repository.get_public_exercises(limit=limit, offset=offset)
     
+    async def get_public_exercise_by_user(
+        self,
+        limit: int,
+        offset: int,
+        user_id: UUID,
+    ):
+       return (
+           await self.exercise_repository.get_public_exercises_by_user(
+               limit=limit,
+               offset=offset,
+               user_id=user_id
+            )
+        )

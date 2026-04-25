@@ -1,4 +1,5 @@
 from typing import Any
+from uuid import UUID
 from sqlalchemy import select
 from typing import Sequence
 from app.models.excercise_model import Exercise
@@ -22,6 +23,17 @@ class ExerciseRepository:
 
         db_result = await self.db.execute(query)
 
-        exercise: Sequence[Exercise] = db_result.scalars().all()
+        return db_result.scalars().all()
+    
+    async def get_public_exercises_by_user(self, limit: int, offset: int, user_id: UUID) -> Sequence[Exercise]:
+        query = (
+            select(Exercise)
+            .where(Exercise.is_public==True)
+            .where(Exercise.user_id==user_id)
+            .offset(offset=offset)
+            .limit(limit=limit)
+        )
 
-        return exercise
+        db_result = await self.db.execute(query)
+
+        return db_result.scalars().all()

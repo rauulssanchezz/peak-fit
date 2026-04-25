@@ -1,4 +1,6 @@
-from fastapi import Body, Depends, Query
+from uuid import UUID
+
+from fastapi import Body, Depends, Path, Query
 from app.models.user_model import User
 from app.schemas.exercise_schema import ExerciseCreate, ExerciseIn
 from app.repositories.exercise_repository import ExerciseRepository
@@ -39,3 +41,20 @@ async def get_public_exercises(
     user: User = Depends(current_user)
 ):
     return await get_exercise_service.get_public_exercises(limit=params.limit, offset=params.offset)
+
+@exercise_router.get(
+    path="/public-exercises/{user_id}"
+)
+async def get_public_exercises_by_user_id(
+    params: PublicRequest = Query(),
+    user_id: UUID = Path(),
+    get_exercise_service: ExerciseService = Depends(get_exercise_service),
+    user: User = Depends(current_user)
+):
+    return (
+        await get_exercise_service.get_public_exercise_by_user(
+            limit=params.limit,
+            offset=params.offset,
+            user_id=user_id
+        )
+    )
