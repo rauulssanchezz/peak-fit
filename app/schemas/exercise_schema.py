@@ -19,3 +19,6 @@ class ExerciseCreate(ExerciseIn):
 
 class ExerciseRead(ExerciseCreate):
     pass
+
+class ExerciseUpdate(ExerciseCreate):
+    id: uuid.UUID

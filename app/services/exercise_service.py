@@ -6,7 +6,7 @@ from fastapi import status
 from app.auth.user_manager import UserManager, get_user_manager
 from app.core.exceptions import PeakFitError
 from app.models.excercise_model import Exercise
-from app.schemas.exercise_schema import ExerciseCreate
+from app.schemas.exercise_schema import ExerciseCreate, ExerciseUpdate
 from app.repositories.exercise_repository import ExerciseRepository
 
 class ExerciseService:
@@ -47,3 +47,6 @@ class ExerciseService:
         offset: int
     ) -> Sequence[Exercise]:
         return await self.get_users_private_exercise(user_id=user_id, limit=limit, offset=offset)
+    
+    async def update_exercise(self, exercise: ExerciseUpdate):
+        return await self.exercise_repository.update_exercise(exercise=exercise)

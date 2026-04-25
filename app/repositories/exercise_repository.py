@@ -1,9 +1,11 @@
 from typing import Any
 from uuid import UUID
-from sqlalchemy import select
+from sqlalchemy import select, update
 from typing import Sequence
 from app.models.excercise_model import Exercise
 from sqlalchemy.ext.asyncio import  AsyncSession
+
+from app.schemas.exercise_schema import ExerciseUpdate
 
 class ExerciseRepository:
 
@@ -55,3 +57,18 @@ class ExerciseRepository:
         db_results = await self.db.execute(query)
 
         return db_results.scalars().all()
+
+    async def update_exercise(self, exercise: ExerciseUpdate):
+        exercise_data = exercise.model_dump()
+        query = (
+            update(Exercise)
+            .where(Exercise.id==exercise.id)
+            .where(Exercise.user_id==exercise.user_id)
+            .values(**exercise_data)
+            .returning(Exercise)
+        )
+
+        db_results = await self.db.execute(query)
+
+        return db_results.scalar_one_or_none()
+

@@ -2,7 +2,7 @@ from uuid import UUID
 
 from fastapi import Body, Depends, Path, Query
 from app.models.user_model import User
-from app.schemas.exercise_schema import ExerciseCreate, ExerciseIn
+from app.schemas.exercise_schema import ExerciseCreate, ExerciseIn, ExerciseUpdate
 from app.repositories.exercise_repository import ExerciseRepository
 from app.core.db import get_async_session
 from app.schemas.public_request import PublicRequest
@@ -73,5 +73,21 @@ async def get_users_private_exercise(
             limit=params.limit,
             offset=params.offset,
             user_id=user_id
+        )
+    )
+
+@exercise_router.put(
+    path="/{exercise_id}"
+)
+async def update_exercise(
+    exercise_in: ExerciseIn = Body(),
+    exercise_id: UUID = Path(),
+    get_exercise_service: ExerciseService = Depends(get_exercise_service),
+    user: User = Depends(current_user)
+):
+    exercise: ExerciseUpdate = ExerciseUpdate(**exercise_in.model_dump(), user_id=user.id, id=exercise_id)
+    return (
+        await get_exercise_service.update_exercise(
+            exercise=exercise
         )
     )
