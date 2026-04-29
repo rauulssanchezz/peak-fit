@@ -3,7 +3,7 @@ from uuid import UUID
 from fastapi_users_db_sqlalchemy import UUID_ID
 from sqlalchemy.exc import IntegrityError
 from fastapi import status
-from app.core.exceptions import PeakFitError
+from app.errors.exceptions import PeakFitError
 from app.models.excercise_model import Exercise
 from app.schemas.exercise_schema import ExerciseCreate, ExerciseUpdate
 from app.repositories.exercise_repository import ExerciseRepository

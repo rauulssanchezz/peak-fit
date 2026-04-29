@@ -5,7 +5,7 @@ from app.routers.routers import exercise_router
 from app.schemas.user_schema import UserCreate, UserRead, UserUpdate
 from app.auth.fastapi_users import fastapi_users
 from app.auth.auth_backend import auth_backend
-from app.core.error_handler import register_error_handlers
+from app.errors.error_handler import register_error_handlers
 
 load_dotenv()
 
