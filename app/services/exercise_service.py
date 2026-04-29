@@ -1,9 +1,8 @@
 from typing import Any, Sequence
 from uuid import UUID
-from fastapi import Depends
+from fastapi_users_db_sqlalchemy import UUID_ID
 from sqlalchemy.exc import IntegrityError
 from fastapi import status
-from app.auth.user_manager import UserManager, get_user_manager
 from app.core.exceptions import PeakFitError
 from app.models.excercise_model import Exercise
 from app.schemas.exercise_schema import ExerciseCreate, ExerciseUpdate
@@ -50,3 +49,6 @@ class ExerciseService:
     
     async def update_exercise(self, exercise: ExerciseUpdate):
         return await self.exercise_repository.update_exercise(exercise=exercise)
+    
+    async def delete_exercise(self, exercise_id: UUID, user_id: UUID_ID):
+        await self.exercise_repository.delete_exercise(exercise_id=exercise_id, user_id=user_id)

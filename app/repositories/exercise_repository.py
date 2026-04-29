@@ -1,6 +1,7 @@
 from typing import Any
 from uuid import UUID
-from sqlalchemy import select, update
+from fastapi_users_db_sqlalchemy import UUID_ID
+from sqlalchemy import select, update, delete
 from typing import Sequence
 from app.models.excercise_model import Exercise
 from sqlalchemy.ext.asyncio import  AsyncSession
@@ -69,6 +70,15 @@ class ExerciseRepository:
         )
 
         db_results = await self.db.execute(query)
+        await self.db.commit()
 
         return db_results.scalar_one_or_none()
-
+    
+    async def delete_exercise(self, exercise_id: UUID, user_id: UUID_ID):
+        query = (
+            delete(Exercise)
+            .where(Exercise.id==exercise_id)
+            .where(Exercise.user_id==user_id)
+        )
+        await self.db.execute(query)
+        await self.db.commit()

@@ -91,3 +91,13 @@ async def update_exercise(
             exercise=exercise
         )
     )
+
+@exercise_router.delete(
+    path="/{exercise_id}"
+)
+async def delete_exercise(
+    exercise_id: UUID = Path(),
+    get_exercise_service: ExerciseService = Depends(get_exercise_service),
+    user: User = Depends(current_user)
+):
+    await get_exercise_service.delete_exercise(exercise_id=exercise_id, user_id=user.id)
