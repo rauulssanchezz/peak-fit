@@ -1,12 +1,12 @@
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
-from fastapi_users.authentication import BearerTransport
 
 class Settings(BaseSettings):
     DATABASE_URL: str = Field(..., validation_alias="DATABASE_URL")
     JWT_SECRET: str = Field(..., validation_alias="JWT_SECRET")
     JWT_ALG: str = Field(default="HS256", validation_alias="JWT_ALG")
     JWT_EXP: int = Field(default=60 * 24, validation_alias="JWT_EXP")
+    GROK_API_KEY: str = Field(..., validation_alias="GROK_API_KEY")
     PROJECT_NAME: str = "Peak Fit"
 
     model_config = SettingsConfigDict(
