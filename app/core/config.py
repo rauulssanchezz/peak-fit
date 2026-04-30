@@ -6,7 +6,8 @@ class Settings(BaseSettings):
     JWT_SECRET: str = Field(..., validation_alias="JWT_SECRET")
     JWT_ALG: str = Field(default="HS256", validation_alias="JWT_ALG")
     JWT_EXP: int = Field(default=60 * 24, validation_alias="JWT_EXP")
-    GROK_API_KEY: str = Field(..., validation_alias="GROK_API_KEY")
+    GROQ_API_KEY: str = Field(..., validation_alias="GROQ_API_KEY")
+    GROQ_MODEL: str = Field(default="llama-3.3-70b-versatile", validation_alias="GROQ_MODEL")
     PROJECT_NAME: str = "Peak Fit"
 
     model_config = SettingsConfigDict(

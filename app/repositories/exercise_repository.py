@@ -59,7 +59,7 @@ class ExerciseRepository:
 
         return db_results.scalars().all()
 
-    async def update_exercise(self, exercise: ExerciseUpdate):
+    async def update_exercise(self, exercise: ExerciseUpdate) -> Exercise | None:
         exercise_data = exercise.model_dump()
         query = (
             update(Exercise)
@@ -74,7 +74,7 @@ class ExerciseRepository:
 
         return db_results.scalar_one_or_none()
     
-    async def delete_exercise(self, exercise_id: UUID, user_id: UUID_ID):
+    async def delete_exercise(self, exercise_id: UUID, user_id: UUID_ID) -> None:
         query = (
             delete(Exercise)
             .where(Exercise.id==exercise_id)
@@ -82,3 +82,14 @@ class ExerciseRepository:
         )
         await self.db.execute(query)
         await self.db.commit()
+
+    async def get_exercise(self, exercise_id: UUID, user_id: UUID_ID) -> Exercise | None:
+        query = (
+            select(Exercise)
+            .where(Exercise.id==exercise_id)
+            .where(Exercise.is_public==True or Exercise.user_id==user_id)
+        )
+
+        db_result = await self.db.execute(query)
+
+        return db_result.scalar_one_or_none()

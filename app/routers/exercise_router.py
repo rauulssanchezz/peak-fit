@@ -1,8 +1,10 @@
 from uuid import UUID
 
 from fastapi import Body, Depends, Path, Query
+from app.core.config import settings
+from app.core.groq import GroqClient
 from app.models.user_model import User
-from app.schemas.exercise_schema import ExerciseCreate, ExerciseIn, ExerciseUpdate
+from app.schemas.exercise_schema import ExerciseCreate, ExerciseIn, ExerciseRead, ExerciseUpdate
 from app.repositories.exercise_repository import ExerciseRepository
 from app.core.db import get_async_session
 from app.schemas.public_request import PublicRequest
@@ -18,7 +20,8 @@ exercise_router = APIRouter(
 
 def get_exercise_service(db: AsyncSession = Depends(get_async_session)):
     exercise_repo: ExerciseRepository = ExerciseRepository(db=db)
-    return ExerciseService(exercise_repository=exercise_repo)
+    groq_client: GroqClient = GroqClient(api_key=settings.GROQ_API_KEY, model=settings.GROQ_MODEL)
+    return ExerciseService(exercise_repository=exercise_repo, groq_client=groq_client)
 
 
 @exercise_router.post(
@@ -33,17 +36,18 @@ async def create_exercise(
     return await get_exercise_service.create_exercise(exercise=exercise)
 
 @exercise_router.get(
-    path="/public-exercises"
+    path="/public-exercises",
+    response_model=list[ExerciseRead]
 )
 async def get_public_exercises(
     params: PublicRequest = Query(),
     get_exercise_service: ExerciseService = Depends(get_exercise_service),
-    user: User = Depends(current_user)
 ):
     return await get_exercise_service.get_public_exercises(limit=params.limit, offset=params.offset)
 
 @exercise_router.get(
-    path="/public-exercises/{user_id}"
+    path="/public-exercises/{user_id}",
+    response_model=list[ExerciseRead]
 )
 async def get_public_exercises_by_user_id(
     params: PublicRequest = Query(),
@@ -60,7 +64,8 @@ async def get_public_exercises_by_user_id(
     )
 
 @exercise_router.get(
-    path="/private-exercises"
+    path="/private-exercises",
+    response_model=list[ExerciseRead]
 )
 async def get_users_private_exercise(
     params: PublicRequest = Query(),
@@ -77,7 +82,8 @@ async def get_users_private_exercise(
     )
 
 @exercise_router.put(
-    path="/{exercise_id}"
+    path="/{exercise_id}",
+    response_model=ExerciseRead
 )
 async def update_exercise(
     exercise_in: ExerciseIn = Body(),
@@ -101,3 +107,25 @@ async def delete_exercise(
     user: User = Depends(current_user)
 ):
     await get_exercise_service.delete_exercise(exercise_id=exercise_id, user_id=user.id)
+
+@exercise_router.get(
+    path="/{exercise_id}",
+    response_model=ExerciseRead
+)
+async def get_exercise(
+    exercise_id: UUID = Path(),
+    get_exercise_service: ExerciseService = Depends(get_exercise_service),
+    user: User = Depends(current_user)
+):
+    return await get_exercise_service.get_exercise(exercise_id=exercise_id, user_id=user.id)
+
+@exercise_router.post(
+    path="/resume/{exercise_id}",
+    response_model=str
+)
+async def resume_exercise(
+    exercise_id: UUID = Path(),
+    get_exercise_service: ExerciseService = Depends(get_exercise_service),
+    user: User = Depends(current_user)
+):
+    return await get_exercise_service.resume_exercise(exercise_id=exercise_id, user_id=user.id)

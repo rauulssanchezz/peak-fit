@@ -17,8 +17,8 @@ class ExerciseIn(BaseModel):
 class ExerciseCreate(ExerciseIn):
     user_id: uuid.UUID
 
-class ExerciseRead(ExerciseCreate):
-    pass
-
 class ExerciseUpdate(ExerciseCreate):
     id: uuid.UUID
+
+class ExerciseRead(ExerciseUpdate):
+    pass

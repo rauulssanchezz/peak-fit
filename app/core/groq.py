@@ -1,4 +1,4 @@
-from errors.exceptions import PeakFitError
+from app.errors.exceptions import PeakFitError
 from groq import AsyncGroq
 from groq.types.chat import ChatCompletionMessageParam
 from fastapi import status
