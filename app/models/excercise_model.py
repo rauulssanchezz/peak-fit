@@ -2,7 +2,7 @@ import uuid
 from fastapi_users_db_sqlalchemy import UUID_ID
 from sqlalchemy import UUID, Boolean, ForeignKey, String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from backend.app.core.db import Base
+from app.core.db import Base
 
 
 class Exercise(Base):

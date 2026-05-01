@@ -2,7 +2,7 @@ import logging
 from fastapi import Request, FastAPI
 from fastapi.responses import JSONResponse
 from sqlalchemy.exc import SQLAlchemyError
-from backend.app.errors.exceptions import PeakFitError
+from app.errors.exceptions import PeakFitError
 
 logger = logging.getLogger("uvicorn.error")
 

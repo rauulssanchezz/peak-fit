@@ -6,13 +6,13 @@ import sys
 from sqlalchemy import pool
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
-from backend.app.core.config import settings
+from app.core.config import settings
 
 from alembic import context
-from backend.app.core.db import Base
-from backend.app.models.user_model import User
-from backend.app.models.access_token import AccessToken
-from backend.app.models.excercise_model import Exercise
+from app.core.db import Base
+from app.models.user_model import User
+from app.models.access_token import AccessToken
+from app.models.excercise_model import Exercise
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

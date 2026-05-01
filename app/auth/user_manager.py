@@ -1,8 +1,8 @@
 import uuid
 from fastapi import Depends, Request
-from backend.app.auth.fastapi_users import BaseUserManager, UUIDIDMixin
-from backend.app.deps.fastapi_users import get_user_db
-from backend.app.models.user_model import User
+from fastapi_users import BaseUserManager, UUIDIDMixin
+from app.deps.fastapi_users import get_user_db
+from app.models.user_model import User
 import os
 
 SECRET = str(os.getenv("JWT_SECRET"))

@@ -1,17 +1,17 @@
 from uuid import UUID
 
 from fastapi import Body, Depends, Path, Query
-from backend.app.core.config import settings
-from backend.app.core.groq import GroqClient
-from backend.app.models.user_model import User
-from backend.app.schemas.exercise_schema import ExerciseCreate, ExerciseIn, ExerciseRead, ExerciseUpdate
-from backend.app.repositories.exercise_repository import ExerciseRepository
-from backend.app.core.db import get_async_session
-from backend.app.schemas.public_request import PublicRequest
-from backend.app.services.exercise_service import ExerciseService
+from app.core.config import settings
+from app.core.groq import GroqClient
+from app.models.user_model import User
+from app.schemas.exercise_schema import ExerciseCreate, ExerciseIn, ExerciseRead, ExerciseUpdate
+from app.repositories.exercise_repository import ExerciseRepository
+from app.core.db import get_async_session
+from app.schemas.public_request import PublicRequest
+from app.services.exercise_service import ExerciseService
 from fastapi.routing import APIRouter
 from sqlalchemy.ext.asyncio import AsyncSession
-from backend.app.auth.fastapi_users import current_user
+from app.auth.fastapi_users import current_user
 
 exercise_router = APIRouter(
     prefix="/exercises",
