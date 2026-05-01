@@ -1,7 +1,7 @@
 from fastapi_users.db import SQLAlchemyBaseUserTableUUID
 from sqlalchemy import Float, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from app.core.db import Base
+from backend.app.core.db import Base
 
 class User(SQLAlchemyBaseUserTableUUID, Base):
     weight: Mapped[float] = mapped_column(Float(precision=2))

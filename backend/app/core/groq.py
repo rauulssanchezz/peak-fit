@@ -1,5 +1,5 @@
-from app.errors.exceptions import PeakFitError
-from groq import AsyncGroq
+from backend.app.errors.exceptions import PeakFitError
+from backend.app.core.groq import AsyncGroq
 from groq.types.chat import ChatCompletionMessageParam
 from fastapi import status
 

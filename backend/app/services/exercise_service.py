@@ -3,11 +3,11 @@ from uuid import UUID
 from fastapi_users_db_sqlalchemy import UUID_ID
 from sqlalchemy.exc import IntegrityError
 from fastapi import status
-from app.core.groq import GroqClient
-from app.errors.exceptions import PeakFitError
-from app.models.excercise_model import Exercise
-from app.schemas.exercise_schema import ExerciseCreate, ExerciseUpdate
-from app.repositories.exercise_repository import ExerciseRepository
+from backend.app.core.groq import GroqClient
+from backend.app.errors.exceptions import PeakFitError
+from backend.app.models.excercise_model import Exercise
+from backend.app.schemas.exercise_schema import ExerciseCreate, ExerciseUpdate
+from backend.app.repositories.exercise_repository import ExerciseRepository
 from groq.types.chat import ChatCompletionMessageParam
 
 class ExerciseService:

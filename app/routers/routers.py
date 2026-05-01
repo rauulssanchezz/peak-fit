@@ -1,1 +1,0 @@
-from app.routers.exercise_router import exercise_router

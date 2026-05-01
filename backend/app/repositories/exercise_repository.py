@@ -3,10 +3,10 @@ from uuid import UUID
 from fastapi_users_db_sqlalchemy import UUID_ID
 from sqlalchemy import select, update, delete
 from typing import Sequence
-from app.models.excercise_model import Exercise
+from backend.app.models.excercise_model import Exercise
 from sqlalchemy.ext.asyncio import  AsyncSession
 
-from app.schemas.exercise_schema import ExerciseUpdate
+from backend.app.schemas.exercise_schema import ExerciseUpdate
 
 class ExerciseRepository:
 
